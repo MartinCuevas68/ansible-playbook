@@ -1,0 +1,51 @@
+
+%TAG ! tag:hostdata:phl:
+---
+# block style incompatible with json
+host: phl-42
+datacenter: 
+  location: &PHL Philadelphia  #local tags use ! and for anchor use &
+  cab: !!str 13 # the quoutes convert to string the value
+  cab_unit: !!str 3 # the !!str is used to convert the int to str
+roles: &wphost
+  - webserver
+  - wp_database
+
+downtime_sch: | # Multi line scalar | enable multiline text
+  2018-10-31 - kernel upgrade
+  2019-02-02 - Security fix
+
+comments: > # Folded style > converts the newlines and spacing to single space
+  Experiencing High I/O
+  since 2018-10-01.
+  Currently investigating.
+
+--- # triple dashes works to define multiple doc streams
+host: phl-43
+datacenter: 
+  location: *PHL  
+  roles: *wphost
+  cab: "11"  
+  cab_unit: "6"
+---  
+host: phl-44
+datacenter: 
+  location: Philadelphia  
+
+  cab: "9"    # the quoutes convert to string the value
+  cab_unit: "7"
+
+... # triple dot is used to define the end of the stram without closing the data stream
+--- 
+host: hel-3
+datacenter: 
+  location: Helsinka  
+  cab: "1"  
+  cab_unit: "8"
+
+
+# Flow style compatible with json format
+
+# host: phl-42
+# datacenter: { location: Philadelphia , cab: 3 , cab_unit: 3}
+# roles: [ webserver, wp_database]
